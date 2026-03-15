@@ -164,8 +164,8 @@ import { SkeletonCardComponent } from '../../components/skeleton-card/skeleton-c
     </div>
   `,
   styles: [`
-    .event-detail { min-height: 100vh; background: #0a0a0a; }
-    .hero { position: relative; padding: 24px 16px; overflow: hidden; }
+    .event-detail { background: #0a0a0a; }
+    .hero { position: relative; padding: 24px var(--page-padding, 16px); overflow: hidden; }
     .hero-bg {
       position: absolute; inset: 0;
       pointer-events: none;
@@ -193,6 +193,8 @@ import { SkeletonCardComponent } from '../../components/skeleton-card/skeleton-c
     .hero-status.live { background:#2a1e1e; color:#e10600; border:1px solid #e1060044; animation:glowPulse 2s infinite; }
     .hero-status.completed { background:#1e1e1e; color:#666; border:1px solid #333; }
     @keyframes glowPulse { 0%,100%{box-shadow:0 0 8px #e1060088} 50%{box-shadow:0 0 16px #e10600} }
+
+    .tab-pad { padding: 16px var(--page-padding, 16px); }
 
     .session-row {
       display: flex;
@@ -267,7 +269,7 @@ import { SkeletonCardComponent } from '../../components/skeleton-card/skeleton-c
     .info-label { font-size: 13px; color: #666; }
     .info-value { font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 15px; color: #ccc; }
 
-    .loading-container { padding: 16px; }
+    .loading-container { padding: 16px var(--page-padding, 16px); }
     .hero-skeleton { padding: 24px 0; }
     .sk {
       background: linear-gradient(90deg, #1e1e1e 25%, #2a2a2a 50%, #1e1e1e 75%);

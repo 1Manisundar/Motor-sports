@@ -113,7 +113,6 @@ interface GroupedEvents {
   `,
   styles: [`
     .calendar-page {
-      min-height: 100vh;
       background: #0a0a0a;
     }
     .page-header {
@@ -134,66 +133,92 @@ interface GroupedEvents {
       margin: 4px 0 0;
     }
     .calendar-tabs {
-      padding: 0 4px;
+      padding: 0;
+      margin-top: 8px;
     }
     .tab-content {
-      padding: 12px 12px 100px;
+      padding: 16px var(--page-padding, 12px) 120px;
     }
-    .date-group { margin-bottom: 16px; }
+    .date-group { margin-bottom: 24px; }
     .date-header {
       font-family: 'Orbitron', sans-serif;
       font-size: 11px;
-      font-weight: 700;
-      color: #555;
+      font-weight: 800;
+      color: #333;
       text-transform: uppercase;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
       padding: 8px 4px;
-      margin-bottom: 6px;
+      margin-bottom: 12px;
+      border-bottom: 2px solid rgba(255,255,255,0.03);
     }
-    .empty-state {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 60px 20px;
-      text-align: center;
-    }
-    .empty-icon { font-size: 48px; margin-bottom: 12px; }
-    .empty-title {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 18px;
-      font-weight: 700;
-      color: #666;
-    }
-    .empty-sub { font-size: 13px; color: #444; margin-top: 6px; }
-    .refresh-bar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      justify-content: center;
-      padding: 8px;
-      color: #888;
-      font-size: 12px;
-    }
+    
+    /* CUSTOM GLASS TABS */
     :host ::ng-deep .mat-mdc-tab-header {
-      background: #0a0a0a;
-      border-bottom: 1px solid #1e1e1e;
+      background: rgba(10, 10, 10, 0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: none;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
     :host ::ng-deep .mat-mdc-tab-label-container {
-      padding: 0 16px;
+      padding: 0 12px;
+    }
+    :host ::ng-deep .mat-mdc-tab {
+      height: 48px;
+      padding: 0 24px;
+      min-width: 0;
+      opacity: 1;
     }
     :host ::ng-deep .mdc-tab__text-label {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      color: #999 !important; /* Much brighter inactive color */
+      font-family: 'Orbitron', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #444 !important;
+      transition: all 0.3s ease;
     }
     :host ::ng-deep .mdc-tab--active .mdc-tab__text-label {
-      color: #fff !important; /* Pure white for active tab */
+      color: #fff !important;
+      text-shadow: 0 0 10px rgba(255,255,255,0.3);
     }
-    :host ::ng-deep .mat-mdc-tab-header {
-      border-bottom: 1px solid #1e1e1e;
+    :host ::ng-deep .mat-mdc-tab .mdc-tab-indicator__content--underline {
+      border-color: #fff !important;
+      border-width: 2px !important;
+      border-radius: 4px 4px 0 0;
+      opacity: 0;
+      transform: scaleX(0.5);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    :host ::ng-deep .mdc-tab--active .mdc-tab-indicator__content--underline {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+    
+    /* Remove default gray ripple background */
+    :host ::ng-deep .mat-mdc-tab .mat-mdc-focus-indicator {
+      display: none;
+    }
+
+    .tab-content app-event-card {
+      display: block;
+      margin-bottom: 12px;
+    }
+    .tab-content app-event-card:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 400px) {
+      .page-title { font-size: 20px; }
+      :host ::ng-deep .mat-mdc-tab {
+        padding: 0 16px;
+      }
+      :host ::ng-deep .mdc-tab__text-label {
+        font-size: 10px;
+        letter-spacing: 1px;
+      }
+      .tab-content { padding: 12px var(--page-padding, 8px) 100px; }
     }
   `]
 })

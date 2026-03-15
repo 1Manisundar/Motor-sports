@@ -196,22 +196,34 @@ export class CalendarService {
                     .map(r => {
                       const pos = r.position || 0;
                       let gapStr = '';
-                      if (r.gap_to_leader === 0) {
+                      
+                      const rawGap: any = r.gap_to_leader;
+                      if (rawGap === 0 || rawGap === '0') {
                         gapStr = 'Leader';
-                      } else if (r.gap_to_leader !== null && typeof r.gap_to_leader === 'number') {
-                        gapStr = `+${r.gap_to_leader.toFixed(3)}s`;
-                      } else if (r.gap_to_leader) {
-                        gapStr = `+${r.gap_to_leader}s`;
+                      } else if (Array.isArray(rawGap)) {
+                        const validGaps = rawGap.filter(g => g !== null && g !== undefined);
+                        gapStr = validGaps.length ? `+${validGaps[validGaps.length - 1]}s` : '';
+                      } else if (typeof rawGap === 'number') {
+                        gapStr = `+${rawGap.toFixed(3)}s`;
+                      } else if (rawGap) {
+                        const sGap = String(rawGap);
+                        gapStr = sGap.startsWith('+') ? sGap : `+${sGap}s`;
                       }
 
+                      // Status handling
+                      let statusSuffix = '';
+                      if (r.dnf) statusSuffix = ' (DNF)';
+                      else if (r.dns) statusSuffix = ' (DNS)';
+
+                      const drv = dMap.get(r.driver_number);
                       return {
                         position: pos,
-                        driverName: dMap.get(r.driver_number)?.full_name || `#${r.driver_number}`,
-                        team: dMap.get(r.driver_number)?.team_name || '',
+                        driverName: (drv?.full_name || `#${r.driver_number}`) + statusSuffix,
+                        team: drv?.team_name || '',
                         points: this.calculatePoints(pos, s.type, 'f1'),
                         gap: gapStr,
                         fastestLap: false,
-                        pole: false
+                        pole: pos === 1 && s.type.toLowerCase().includes('qual')
                       };
                     });
                   console.log(`[CalendarService] Processed results for session ${s.type}:`, s.results);
