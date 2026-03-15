@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, RouterOutlet, Event, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { NavigationService } from './services/navigation.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,8 @@ import { filter } from 'rxjs';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  constructor(private router: Router) {
+  constructor(private router: Router, private navService: NavigationService) {
+    this.navService.init();
     // Scroll to top on navigation change
     this.router.events.pipe(
       filter((e: Event): e is NavigationEnd => e instanceof NavigationEnd)
