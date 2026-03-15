@@ -1,0 +1,66 @@
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+}
+.bottom-nav {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: rgba(15, 15, 15, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid #1e1e1e;
+  padding-bottom: env(safe-area-inset-bottom);
+  height: calc(60px + env(safe-area-inset-bottom));
+  z-index: 1000;
+}
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  height: 100%;
+  text-decoration: none;
+  color: #666;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.nav-icon {
+  font-size: 20px;
+  margin-bottom: 4px;
+  transition: transform 0.2s, filter 0.2s;
+  filter: grayscale(100%) opacity(0.5);
+}
+.nav-label {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.nav-item.active {
+  color: #f0f0f0;
+}
+.nav-item.active .nav-icon {
+  transform: translateY(-2px);
+  filter: grayscale(0%) opacity(1);
+}
+.nav-item:hover:not(.active) {
+  color: #aaa;
+}
+
+@media (min-width: 768px) {
+  /* Removed max-width constraint to make app fullscreen on desktop */
+  body { background: #000; }
+}
