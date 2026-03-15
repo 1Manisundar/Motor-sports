@@ -15,7 +15,8 @@ import { CountdownComponent } from '../countdown/countdown.component';
          [class.is-live]="event.status === 'live'"
          [style.--series-color]="event.seriesColor"
          [attr.data-index]="index"
-         [routerLink]="['/event', event.series, event.id]">
+         [routerLink]="['/event', event.series, event.id]"
+         [skipLocationChange]="true">
 
       <!-- Logo -->
       <div class="card-logo">

@@ -1,7 +1,10 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'calendar', pathMatch: 'full' },
+  {
+    path: '',
+    loadComponent: () => import('./pages/calendar/calendar.component').then(m => m.CalendarComponent),
+  },
   {
     path: 'calendar',
     loadComponent: () => import('./pages/calendar/calendar.component').then(m => m.CalendarComponent),
